@@ -5,7 +5,7 @@ import (
 )
 
 type node struct {
-	m        *sync.Mutex
+	m        *sync.RWMutex
 	children map[rune]*node
 	end      bool
 }
