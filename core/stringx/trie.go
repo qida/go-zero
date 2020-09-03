@@ -1,6 +1,10 @@
 package stringx
 
-import "github.com/tal-tech/go-zero/core/lang"
+import (
+	"sync"
+
+	"github.com/qida/go-zero/core/lang"
+)
 
 const defaultMask = '*'
 
@@ -26,7 +30,7 @@ type (
 
 func NewTrie(words []string, opts ...TrieOption) Trie {
 	n := new(trieNode)
-
+	n.node.m = new(sync.RWMutex)
 	for _, opt := range opts {
 		opt(n)
 	}

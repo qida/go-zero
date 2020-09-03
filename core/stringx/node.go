@@ -33,6 +33,5 @@ func (n *node) add(word string) {
 			nd = child
 		}
 	}
-
 	nd.end = true
 }
