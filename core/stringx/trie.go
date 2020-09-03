@@ -71,7 +71,9 @@ func (n *trieNode) FindKeywords(text string) []string {
 	return n.collectKeywords(chars, scopes)
 }
 func (n *trieNode) Add(text string) {
-	n.add(text)
+	if text != "" {
+		n.add(text)
+	}
 }
 func (n *trieNode) collectKeywords(chars []rune, scopes []scope) []string {
 	set := make(map[string]lang.PlaceholderType)
