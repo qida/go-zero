@@ -1,16 +1,22 @@
 package stringx
 
+import (
+	"sync"
+)
+
 type node struct {
+	m        *sync.Mutex
 	children map[rune]*node
 	end      bool
 }
 
 func (n *node) add(word string) {
+	n.m.Lock()
+	defer n.m.Unlock()
 	chars := []rune(word)
 	if len(chars) == 0 {
 		return
 	}
-
 	nd := n
 	for _, char := range chars {
 		if nd.children == nil {

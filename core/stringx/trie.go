@@ -8,6 +8,7 @@ type (
 	TrieOption func(trie *trieNode)
 
 	Trie interface {
+		Add(test string)
 		Filter(text string) (string, []string, bool)
 		FindKeywords(text string) []string
 	}
@@ -33,7 +34,7 @@ func NewTrie(words []string, opts ...TrieOption) Trie {
 		n.mask = defaultMask
 	}
 	for _, word := range words {
-		n.add(word)
+		n.Add(word)
 	}
 
 	return n
@@ -65,7 +66,9 @@ func (n *trieNode) FindKeywords(text string) []string {
 	scopes := n.findKeywordScopes(chars)
 	return n.collectKeywords(chars, scopes)
 }
-
+func (n *trieNode) Add(text string) {
+	n.add(text)
+}
 func (n *trieNode) collectKeywords(chars []rune, scopes []scope) []string {
 	set := make(map[string]lang.PlaceholderType)
 	for _, v := range scopes {
